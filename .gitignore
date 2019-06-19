@@ -1,0 +1,5 @@
+**/target/
+**/node_modules/
+**/.settings/
+**/.serverless/
+**/package-lock.json

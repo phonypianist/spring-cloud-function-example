@@ -1,0 +1,57 @@
+service: function-example-aws
+
+provider:
+  name: aws
+  runtime: java8
+  stage: ${opt:stage, self:custom.defaultStage}
+  profile: ${opt:profile, self:custom.defaultProfile}
+  region: ${opt:region, self:custom.defaultRegion}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:UpdateItem"
+      Resource: "*"
+  memorySize: 512
+  timeout: 20
+
+custom:
+  defaultStage: staging
+  defaultProfile: default
+  defaultRegion: ap-northeast-1
+
+plugins:
+  - serverless-prune-plugin
+
+package:
+  artifact: target/spring-cloud-function-example-1.0.0-aws.jar
+
+functions:
+  CountUp:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
+    environment:
+      FUNCTION_NAME: countUp
+    events:
+      - http:
+          path: countUp
+          method: post
+          integration: lambda-proxy
+
+resources:
+  Resources:
+    CounterTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userName
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 2
+        TableName: counter
+
+    CountUpLogGroup:
+      Properties:
+        RetentionInDays: 3
