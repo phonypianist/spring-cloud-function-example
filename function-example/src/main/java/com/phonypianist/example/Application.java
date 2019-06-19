@@ -1,7 +1,7 @@
 package com.phonypianist.example;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsync;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsyncClientBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.function.context.FunctionalSpringApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +14,8 @@ public class Application {
     }
 
     @Bean
-    AmazonDynamoDB amazonDynamoDB() {
-        return AmazonDynamoDBClientBuilder.standard().build();
+    AmazonDynamoDBAsync amazonDynamoDBAsync() {
+        return AmazonDynamoDBAsyncClientBuilder.standard().build();
     }
 
 }
