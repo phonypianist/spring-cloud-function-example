@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
-@Component
+@Component("countUp")
 public class CountUpFunction implements Function<CountUpRequest, CountUpResponse> {
 
     private CounterRepository counterRepository;

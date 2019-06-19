@@ -11,8 +11,8 @@ provider:
       Action:
         - "dynamodb:UpdateItem"
       Resource: "*"
-  memorySize: 512
-  timeout: 20
+  memorySize: 1024
+  timeout: 30
 
 custom:
   defaultStage: staging
@@ -23,7 +23,7 @@ plugins:
   - serverless-prune-plugin
 
 package:
-  artifact: target/spring-cloud-function-example-1.0.0-aws.jar
+  artifact: target/function-example-1.0.0-aws.jar
 
 functions:
   CountUp:
@@ -33,6 +33,15 @@ functions:
     events:
       - http:
           path: countUp
+          method: post
+          integration: lambda-proxy
+  CountUpFlux:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
+    environment:
+      FUNCTION_NAME: countUpFlux
+    events:
+      - http:
+          path: countUpFlux
           method: post
           integration: lambda-proxy
 
@@ -53,5 +62,8 @@ resources:
         TableName: counter
 
     CountUpLogGroup:
+      Properties:
+        RetentionInDays: 3
+    CountUpFluxLogGroup:
       Properties:
         RetentionInDays: 3
