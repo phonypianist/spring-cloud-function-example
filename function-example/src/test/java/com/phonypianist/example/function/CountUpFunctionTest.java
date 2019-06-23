@@ -15,10 +15,13 @@ import org.springframework.cloud.function.adapter.aws.SpringBootRequestHandler;
 public class CountUpFunctionTest {
 
     @Test
-    void countUp() {
+    void echo() {
+        System.setProperty("function.name", "echo");
         SpringBootRequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> requestHandler = new SpringBootApiGatewayRequestHandler(TestConfig.class);
-        APIGatewayProxyRequestEvent requestEvent = new APIGatewayProxyRequestEvent().withBody("{\"name\":\"foo\"}");
+        APIGatewayProxyRequestEvent requestEvent = new APIGatewayProxyRequestEvent().withBody("{\"message\":\"foo\"}");
         APIGatewayProxyResponseEvent responseEvent = (APIGatewayProxyResponseEvent)requestHandler.handleRequest(requestEvent, null);
+        requestHandler.close();
+        assertThat(responseEvent.getBody()).isEqualTo("{\"message\":\"foo\"}");
     }
 
 }

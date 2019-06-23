@@ -44,6 +44,42 @@ functions:
           path: countUpFlux
           method: post
           integration: lambda-proxy
+  Echo:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
+    environment:
+      FUNCTION_NAME: echo
+    events:
+      - http:
+          path: echo
+          method: post
+          integration: lambda-proxy
+  EchoFlux:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
+    environment:
+      FUNCTION_NAME: echoFlux
+    events:
+      - http:
+          path: echoFlux
+          method: post
+          integration: lambda-proxy
+  Dispatch:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
+    environment:
+      FUNCTION_NAME: dispatch
+    events:
+      - http:
+          path: dispatch
+          method: post
+          integration: lambda-proxy
+  DispatchFlux:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
+    environment:
+      FUNCTION_NAME: dispatchFlux
+    events:
+      - http:
+          path: dispatchFlux
+          method: post
+          integration: lambda-proxy
 
 resources:
   Resources:
@@ -65,5 +101,17 @@ resources:
       Properties:
         RetentionInDays: 3
     CountUpFluxLogGroup:
+      Properties:
+        RetentionInDays: 3
+    DispatchLogGroup:
+      Properties:
+        RetentionInDays: 3
+    DispatchFluxLogGroup:
+      Properties:
+        RetentionInDays: 3
+    EchoLogGroup:
+      Properties:
+        RetentionInDays: 3
+    EchoFluxLogGroup:
       Properties:
         RetentionInDays: 3
