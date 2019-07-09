@@ -11,11 +11,6 @@ public class EchoFunction implements Function<EchoRequest, EchoResponse> {
 
     @Override
     public EchoResponse apply(EchoRequest requestParam) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return new EchoResponse(requestParam.getMessage());
     }
 

@@ -22,7 +22,7 @@ public class DispatchFunction implements Function<EchoRequest, EchoResponse> {
 
     @Override
     public EchoResponse apply(EchoRequest requestParam) {
-        String uri = environment.getProperty("APP_ECHO_URI");
+        String uri = environment.getProperty("ECHO_URI");
         return restTemplate.postForObject(uri, requestParam, EchoResponse.class);
     }
 

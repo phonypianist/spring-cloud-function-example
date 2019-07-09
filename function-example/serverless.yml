@@ -44,6 +44,32 @@ functions:
           path: countUpFlux
           method: post
           integration: lambda-proxy
+  Dispatch:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
+    environment:
+      FUNCTION_NAME: dispatch
+      ECHO_URI:
+        Fn::Join:
+          - ""
+          - [" https://", { "Ref": "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}/echo" ]
+    events:
+      - http:
+          path: dispatch
+          method: post
+          integration: lambda-proxy
+  DispatchFlux:
+    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
+    environment:
+      FUNCTION_NAME: dispatchFlux
+      ECHO_FLUX_URI:
+        Fn::Join:
+            - ""
+            - [" https://", { "Ref": "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}/echoFlux" ]
+    events:
+      - http:
+          path: dispatchFlux
+          method: post
+          integration: lambda-proxy
   Echo:
     handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
     environment:
@@ -60,24 +86,6 @@ functions:
     events:
       - http:
           path: echoFlux
-          method: post
-          integration: lambda-proxy
-  Dispatch:
-    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
-    environment:
-      FUNCTION_NAME: dispatch
-    events:
-      - http:
-          path: dispatch
-          method: post
-          integration: lambda-proxy
-  DispatchFlux:
-    handler: org.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandler
-    environment:
-      FUNCTION_NAME: dispatchFlux
-    events:
-      - http:
-          path: dispatchFlux
           method: post
           integration: lambda-proxy
 

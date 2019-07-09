@@ -24,7 +24,7 @@ public class DispatchFluxFunction implements Function<Flux<EchoRequest>, Flux<Ec
 
     @Override
     public Flux<EchoResponse> apply(Flux<EchoRequest> requestParam) {
-        String uri = environment.getProperty("app.echoFlux.uri");
+        String uri = environment.getProperty("ECHO_FLUX_URI");
         return requestParam.flatMap(param -> webClient
                 .post()
                 .uri(uri)
