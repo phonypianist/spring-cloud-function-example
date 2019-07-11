@@ -51,7 +51,7 @@ functions:
       ECHO_URI:
         Fn::Join:
           - ""
-          - [" https://", { "Ref": "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}/echo" ]
+          - ["https://", { Ref: "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}/echo" ]
     events:
       - http:
           path: dispatch
@@ -64,7 +64,7 @@ functions:
       ECHO_FLUX_URI:
         Fn::Join:
             - ""
-            - [" https://", { "Ref": "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}/echoFlux" ]
+            - ["https://", { Ref: "ApiGatewayRestApi" }, ".execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}/echoFlux" ]
     events:
       - http:
           path: dispatchFlux
