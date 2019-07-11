@@ -1,0 +1,36 @@
+logging:
+  level:
+    org.springframework: INFO
+
+spring.cloud.function:
+  compile:
+
+    textGenerator:
+      type: supplier
+      outputType: Flux<com.phonypianist.example.dto.Message>
+      lambda: () -> Flux.fromIterable(Arrays.asList(
+                  new com.phonypianist.example.dto.Message("hoge"),
+                  new com.phonypianist.example.dto.Message("fuga"),
+                  new com.phonypianist.example.dto.Message("piyo")))
+
+    upper:
+      type: function
+      inputType: com.phonypianist.example.dto.Message
+      outputType: com.phonypianist.example.dto.Message
+      lambda: message -> new com.phonypianist.example.dto.Message(message.getText().toUpperCase())
+
+    decorator:
+      type: function
+      inputType: com.phonypianist.example.dto.Message
+      outputType: com.phonypianist.example.dto.Message
+      lambda: message -> new com.phonypianist.example.dto.Message("[" + message.getText() + "]")
+
+    printer:
+      type: consumer
+      inputType: com.phonypianist.example.dto.Message
+      lambda: System.out::println
+
+  task:
+    supplier: textGenerator
+    function: upper|decorator
+    consumer: printer
