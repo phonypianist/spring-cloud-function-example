@@ -8,7 +8,7 @@ spring.cloud.function:
     textGenerator:
       type: supplier
       outputType: Flux<com.phonypianist.example.dto.Message>
-      lambda: () -> Flux.fromIterable(Arrays.asList(
+      lambda: () -> Flux.fromIterable(List.of(
                   new com.phonypianist.example.dto.Message("hoge"),
                   new com.phonypianist.example.dto.Message("fuga"),
                   new com.phonypianist.example.dto.Message("piyo")))
