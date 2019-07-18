@@ -12,7 +12,7 @@
 ## function-example
 
 サーバーレスでSpring Cloud Functionを使用するためのサンプル。<br>
-Serverless Frameworkでデプロイして、そのまま試せます。
+Serverless Frameworkでデプロイして、そのまま試せます（AWS限定）。
 
 例として登録している関数は次の通りです。
 
