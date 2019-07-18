@@ -19,7 +19,7 @@ Serverless Frameworkでデプロイして、そのまま試せます（AWS限定
 |関数|説明|
 |----|----|
 |EchoFunction|messageをそのまま返す関数|
-|EchoFunction|EchoFunctionのFlux定義版|
+|EchoFluxFunction|EchoFunctionのFlux定義版|
 |DispatchFunction|アクセスするとEchoのAPIをそのまま呼び出す関数|
 |DispatchFluxFunction|DispatchFunctionのFlux定義版|
 |CountUpFunction|アクセスすると、指定したnameをキーにしたDynamoDBの値が1増える関数|
